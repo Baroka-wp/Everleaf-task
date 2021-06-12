@@ -1,7 +1,11 @@
 FactoryBot.define do
   factory :task do
-    # Please change the following contents according to the column name actually created
-    task_name { 'test_taskname' }
-    description { 'test_description' }
+    task_name { 'Title 1 made by Factory' }
+    description { 'undefined' }
+  end
+
+  factory :second_task, class: Task do
+    task_name { 'Title 2 made by Factory' }
+    description { 'undefined' }
   end
 end

@@ -1,10 +1,15 @@
 require 'rails_helper'
 RSpec.describe 'Task management function', type: :system do
+  before do
+    FactoryBot.create(:task)
+    FactoryBot.create(:second_task)
+  end
   describe 'New creation function' do
     context 'When creating a new task' do
       it 'The created task is displayed' do
         visit new_task_path
         task = FactoryBot.create(:task, task_name: 'task')
+        click_button "Register"
         expect(page).to have_content 'task'
       end
     end
