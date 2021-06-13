@@ -1,0 +1,26 @@
+<h1>Tasks index</h1>
+<p><%= notice %></p>
+<table>
+  <tr>
+    <th>Task Name</th>
+    <th>Description</th>
+    <th>Priority</th>
+    <th>Status</th>
+    <th>Deadline</th>
+  </tr>
+<% @tasks.each do |task| %>
+  <tr>
+    <td><%= task.task_name %></td>
+    <td><%= task.description %></td>
+    <td><%= task.priority %></td>
+    <td><%= task.status %></td>
+    <td><%= task.deadline %></td>
+    <td><%= link_to 'See details', task_path(task.id) %></td>
+    <td><%= link_to "Modifier", edit_task_path(task.id) %></td>
+    <td><%= link_to 'Supprimer', task_path(task.id), method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br>
+<%= link_to 'Create a new task', new_task_path %>
