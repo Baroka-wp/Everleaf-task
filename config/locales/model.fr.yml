@@ -1,0 +1,18 @@
+fr:
+activerecord:
+models: modèles
+task: Tâche
+user: Utilisateur
+attributes: Attributs
+description: Description
+content: Contenu
+user: Utilisateur
+status: Statut
+priority: Priorité
+deadline: Deadline
+name: Nom
+email: Email
+current_password: Mot_de_passe_actuel
+password: Mot_de_passe
+password_confirmation: Mot_de_passe_confirmé
+remember_me: Se_souvenir
