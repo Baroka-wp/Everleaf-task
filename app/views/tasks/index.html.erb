@@ -9,8 +9,8 @@
     <th>Deadline</th>
   </tr>
 <% @tasks.each do |task| %>
-  <tr id="task_row">
-    <td><%= task.task_name %></td>
+  <tr >
+    <td class="task_row"><%= task.task_name %></td>
     <td><%= task.description %></td>
     <td><%= task.priority %></td>
     <td><%= task.status %></td>
