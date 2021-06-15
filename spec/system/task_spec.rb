@@ -1,16 +1,19 @@
 require 'rails_helper'
 RSpec.describe 'Task management function', type: :system do
   before do
-    FactoryBot.create(:task)
+    @task8 = FactoryBot.create(:task)
     FactoryBot.create(:second_task)
   end
   describe 'New creation function' do
     context 'When creating a new task' do
       it 'The created task is displayed' do
         visit new_task_path
-        task = FactoryBot.create(:task, task_name: 'task')
+        date = DateTime.now.to_date
+        task = FactoryBot.create(:task, task_name: 'task3', deadline: date )
         click_button "Register"
-        expect(page).to have_content 'task'
+        visit tasks_path
+        expect(page).to have_content 'task3'
+        expect(page).to have_content date
       end
     end
   end
@@ -29,6 +32,18 @@ RSpec.describe 'Task management function', type: :system do
         visit tasks_path
         task_list = all('.task_row')
         expect(task_list[0].text).to eq task2.task_name
+      end
+    end
+    context 'When tasks are arranged in descending order of deadline date and time' do
+      it 'Task with higher deadline is displayed at the top' do
+        date0 = DateTime.now.to_date
+        date1 = date0 + 2.day
+        task4 = FactoryBot.create(:task, task_name: 'task4', deadline: date1)
+        date2 = date0 + 1.day
+        task5 = FactoryBot.create(:task, task_name: 'task5', deadline: date2)
+        visit tasks_path(sort_expired: "true")
+        task_list = all('.deadline_row')
+        expect(task_list[0].text).to eq task4.deadline.to_s
       end
     end
   end
