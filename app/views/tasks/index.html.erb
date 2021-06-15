@@ -9,8 +9,8 @@
     <th>Deadline</th>
   </tr>
 <% @tasks.each do |task| %>
-  <tr>
-    <td><%= task.task_name %></td>
+  <tr >
+    <td class="task_row"><%= task.task_name %></td>
     <td><%= task.description %></td>
     <td><%= task.priority %></td>
     <td><%= task.status %></td>
@@ -23,4 +23,12 @@
 </table>
 
 <br>
+<h2>List of words converted by i18n</h2>
+Task: <%= t('view.task') %> <br>
+User: <%= t('view.user') %> <br>
+Attributes: <%= t('view.attributes') %> <br>
+Content: <%= t('view.content') %> <br>
+Priority: <%= t('view.priority') %> <br>
+<br>
+
 <%= link_to 'Create a new task', new_task_path %>

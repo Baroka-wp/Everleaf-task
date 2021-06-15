@@ -22,6 +22,15 @@ RSpec.describe 'Task management function', type: :system do
         expect(page).to have_content 'task'
       end
     end
+    context 'When tasks are arranged in descending order of creation date and time' do
+      it 'New task is displayed at the top' do
+        task1 = FactoryBot.create(:task, task_name: 'task1')
+        task2 = FactoryBot.create(:task, task_name: 'task2')
+        visit tasks_path
+        task_list = all('.task_row')
+        expect(task_list[0].text).to eq task2.task_name
+      end
+    end
   end
   describe 'Detailed display function' do
      context 'When transitioned to any task details screen' do
