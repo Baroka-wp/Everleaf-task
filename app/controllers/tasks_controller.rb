@@ -3,6 +3,14 @@ class TasksController < ApplicationController
 	def index
 		if params[:sort_expired]
 			@tasks = Task.all.order('deadline DESC')
+		elsif params[:task_name].present?
+			if params[:status].present?
+				@tasks = Task.task_name_search(params[:task_name]).status_search(params[:status])
+			else
+				@tasks = Task.task_name_search(params[:task_name])
+			end
+		elsif params[:status].present?
+			@tasks = Task.status_search(params[:status])
 		else
 			@tasks = Task.all.order('created_at DESC')
 		end
