@@ -18,4 +18,5 @@ class Task < ApplicationRecord
 	    ELSE 'z' 
 	    END ASC, 
 	    id DESC" )}
+	max_paginates_per 5
 end

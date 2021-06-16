@@ -44,4 +44,5 @@ Content: <%= t('view.content') %> <br>
 Priority: <%= t('view.priority') %> <br>
 <br>
 
-<%= link_to 'Create a new task', new_task_path %>
+<%= link_to 'Create a new task', new_task_path %> || <%= paginate @tasks %>
+
