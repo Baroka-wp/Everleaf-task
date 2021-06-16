@@ -11,7 +11,7 @@
   <% end %>
   <div class="task_title">
     <%= form.label :Task_name %>
-    <%= form.text_field :task_name %>
+    <%= form.text_field :task_name, id: "task" %>
   </div>
   <div class="task_title">
     <%= form.label :Description %>
@@ -23,11 +23,11 @@
   </div>
   <div class="task_title">
     <%= form.label :Status %>
-    <%= form.text_field :status %>
+    <%= form.text_field :status, id: "status" %>
   </div>
   <div class="task_title">
     <%= form.label :Deadline %>
-    <%= form.date_select :deadline %>
+    <%= form.date_select :deadline, id: "deadline" %>
   </div>
   <%= form.submit value:"Register"%>
 <% end %>

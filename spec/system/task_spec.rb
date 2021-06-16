@@ -5,15 +5,21 @@ RSpec.describe 'Task management function', type: :system do
     FactoryBot.create(:second_task)
   end
   describe 'New creation function' do
+    before(:each) do
+      visit root_path
+    end
     context 'When creating a new task' do
       it 'The created task is displayed' do
         visit new_task_path
-        date = DateTime.now.to_date
-        task = FactoryBot.create(:task, task_name: 'task3', deadline: date )
+        fill_in 'task', with: 'task3'
+        select '2021', :from => 'task_deadline_1i'
+        select 'juin', :from => 'task_deadline_2i'
+        select '1', :from => 'task_deadline_3i'
+        fill_in 'status', with: 'unstarted'
         click_button "Register"
-        visit tasks_path
         expect(page).to have_content 'task3'
-        expect(page).to have_content date
+        expect(page).to have_content "2021-06-01"
+        expect(page).to have_content 'unstarted'
       end
     end
   end
@@ -55,5 +61,41 @@ RSpec.describe 'Task management function', type: :system do
         expect(page).to have_content 'task'
        end
      end
+  end
+
+  describe 'Search function' do
+    before do
+      FactoryBot.create(:task)
+      FactoryBot.create(:second_task)
+    end
+    context 'If you do a fuzzy search by Title' do
+      it "Filter by tasks that include search keywords" do
+        visit tasks_path
+        search_task_name = "Title 1"
+        click_button "search"
+        visit tasks_path(task_name: search_task_name)
+        expect(page).to have_content search_task_name
+      end
+    end
+    context 'When you search for status' do
+      it "Tasks that exactly match the status are narrowed down" do
+        visit tasks_path
+        search_status = "unstarted"
+        click_button "search"
+        visit tasks_path(status: search_status)
+        expect(page).to have_content search_status
+      end
+    end
+    context 'Title performing fuzzy search of title and status search' do
+      it "Narrow down tasks that include search keywords in the Title and exactly match the status" do
+        visit tasks_path
+        search_task_name = "Title 2"
+        search_status = "unstarted"
+        click_button "search"
+        visit tasks_path(task_name: search_task_name, status: search_status)
+        expect(page).to have_content search_task_name
+        expect(page).to have_content search_status
+      end
+    end
   end
 end

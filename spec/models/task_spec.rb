@@ -21,4 +21,29 @@ RSpec.describe Task, type: :model do
       end
     end
   end
+  describe 'Search function' do
+    let!(:task) { FactoryBot.create(:task) }
+    let!(:second_task) { FactoryBot.create(:second_task) }
+    context 'Title is performed by scope method' do
+      it "Tasks containing search keywords are narrowed down" do
+        expect(Task.task_name_search('Title 1')).to include(task)
+        expect(Task.task_name_search('Title 1')).not_to include(second_task)
+        expect(Task.task_name_search('Title 1').count).to eq 1
+      end
+    end
+    context 'When the status is searched with the scope method' do
+      it "Tasks that exactly match the status are narrowed down" do
+        expect(Task.status_search('completed')).to include(task)
+        expect(Task.status_search('completed')).not_to include(second_task)
+        expect(Task.status_search('completed').count).to eq 1
+      end
+    end
+    context 'When performing fuzzy search and status search Title' do
+      it "Narrow down tasks that include search keywords in the Title and exactly match the status" do
+        expect(Task.task_name_search('Title 1').status_search('completed')).to include(task)
+        expect(Task.task_name_search('Title 1').status_search('completed')).not_to include(second_task)
+        expect(Task.task_name_search('Title 1').status_search('completed').count).to eq 1
+      end
+    end
+  end
 end

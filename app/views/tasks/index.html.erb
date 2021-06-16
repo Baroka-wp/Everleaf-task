@@ -6,7 +6,7 @@
   <%= form.text_field :task_name %>
   <%= form.label :status, "Status" %>
   <%= form.select :status, options_for_select([[''],['unstarted'], ['in progress'], ['completed']])%>
-  <%= form.submit "Search" %>
+  <%= form.submit value: "search" %>
 <% end %>
 
 <br>
