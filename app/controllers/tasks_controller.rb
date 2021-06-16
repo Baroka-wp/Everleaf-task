@@ -11,6 +11,8 @@ class TasksController < ApplicationController
 			end
 		elsif params[:status].present?
 			@tasks = Task.status_search(params[:status])
+		elsif params[:sort_priority]
+			@tasks = Task.priority_ordered
 		else
 			@tasks = Task.all.order('created_at DESC')
 		end

@@ -9,4 +9,13 @@ class Task < ApplicationRecord
 	def status_search(query)
 	  where(status: query)
 	end
+
+	scope :priority_ordered, -> {order("
+	    CASE tasks.priority 
+	    WHEN 'high' THEN 'a' 
+	    WHEN 'medium' THEN 'b' 
+	    WHEN 'low' THEN 'c' 
+	    ELSE 'z' 
+	    END ASC, 
+	    id DESC" )}
 end

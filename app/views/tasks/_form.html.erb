@@ -19,11 +19,11 @@
   </div>
   <div class="task_title">
     <%= form.label :Priotity %>
-    <%= form.text_field :priority %>
+    <%= form.select :priority, options_for_select([[''],['high'], ['medium'], ['low']]), id: "priority"  %>
   </div>
   <div class="task_title">
     <%= form.label :Status %>
-    <%= form.text_field :status, id: "status" %>
+    <%= form.select :status, options_for_select([[''],['unstarted'], ['in progress'], ['completed']]), id: "status"  %>
   </div>
   <div class="task_title">
     <%= form.label :Deadline %>

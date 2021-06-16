@@ -15,11 +15,13 @@ RSpec.describe 'Task management function', type: :system do
         select '2021', :from => 'task_deadline_1i'
         select 'juin', :from => 'task_deadline_2i'
         select '1', :from => 'task_deadline_3i'
-        fill_in 'status', with: 'unstarted'
+        select "unstarted", :from => 'task_status'
+        select "high", :from => 'task_priority'
         click_button "Register"
         expect(page).to have_content 'task3'
         expect(page).to have_content "2021-06-01"
         expect(page).to have_content 'unstarted'
+        expect(page).to have_content 'high'
       end
     end
   end
@@ -52,6 +54,18 @@ RSpec.describe 'Task management function', type: :system do
         expect(task_list[0].text).to eq task4.deadline.to_s
       end
     end
+    context 'When tasks are arranged in descending order of priority' do
+      it 'Task with higher priority is displayed at the top' do
+        task1 = FactoryBot.create(:task, task_name: 'task1', priority: "high")
+        task2 = FactoryBot.create(:task, task_name: 'task2', priority: "medium")
+        task3 = FactoryBot.create(:task, task_name: 'task3', priority: "low")
+        visit tasks_path(sort_priority: "true")
+        task_list = all('.priority_row')
+        expect(task_list[0].text).to eq task1.priority
+        expect(task_list[1].text).to eq task2.priority
+        expect(task_list[2].text).to eq task3.priority
+      end
+    end
   end
   describe 'Detailed display function' do
      context 'When transitioned to any task details screen' do
@@ -72,7 +86,6 @@ RSpec.describe 'Task management function', type: :system do
       it "Filter by tasks that include search keywords" do
         visit tasks_path
         search_task_name = "Title 1"
-        click_button "search"
         visit tasks_path(task_name: search_task_name)
         expect(page).to have_content search_task_name
       end
@@ -81,7 +94,6 @@ RSpec.describe 'Task management function', type: :system do
       it "Tasks that exactly match the status are narrowed down" do
         visit tasks_path
         search_status = "unstarted"
-        click_button "search"
         visit tasks_path(status: search_status)
         expect(page).to have_content search_status
       end
@@ -91,7 +103,6 @@ RSpec.describe 'Task management function', type: :system do
         visit tasks_path
         search_task_name = "Title 2"
         search_status = "unstarted"
-        click_button "search"
         visit tasks_path(task_name: search_task_name, status: search_status)
         expect(page).to have_content search_task_name
         expect(page).to have_content search_status

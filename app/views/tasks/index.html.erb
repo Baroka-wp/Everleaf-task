@@ -10,7 +10,9 @@
 <% end %>
 
 <br>
-<p><%= link_to "sort by end deadline", tasks_path(sort_expired: "true") , value: "dater"%></p>
+<p><%= link_to "sort by end deadline", tasks_path(sort_expired: "true") , value: "dater"%> ||
+  <%= link_to "sort by priority", tasks_path(sort_priority: "true") %>
+</p>
 <table>
   <tr>
     <th>Task Name</th>
@@ -23,7 +25,7 @@
   <tr >
     <td class="task_row"><%= task.task_name %></td>
     <td><%= task.description %></td>
-    <td><%= task.priority %></td>
+    <td class="priority_row"><%= task.priority %></td>
     <td><%= task.status %></td>
     <td class="deadline_row"><%= task.deadline %></td>
     <td><%= link_to 'See details', task_path(task.id) %></td>
