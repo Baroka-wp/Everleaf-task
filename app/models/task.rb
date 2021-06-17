@@ -19,4 +19,5 @@ class Task < ApplicationRecord
 	    END ASC, 
 	    id DESC" )}
 	max_paginates_per 5
+	belongs_to :user
 end

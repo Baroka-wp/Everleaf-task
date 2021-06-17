@@ -1,0 +1,25 @@
+<%= form_with(model: @user, local: true ) do |form| %>
+  <br>
+  <div class="user">
+    <p>Change Profile?</p>
+    <div class="form">
+        <br>
+        <%=form.label :Name %>
+        <%= form.text_field :name, placeholder: "Name..." %> 
+        <br>
+        <br>
+        <%=form.label :Email %>
+        <%= form.email_field :email, placeholder: "Email..." %>
+        <br>
+        <br>
+        <%= form.password_field :password, placeholder: "Password..." %>
+        <br> 
+        <br> 
+        <%= form.password_field :password_confirmation, placeholder: "Password confirmation..." %>
+        <br>
+        <br>
+    </div>
+    <br>
+    <%= form.submit "Update", class: "submit" %>
+  </div>
+<% end %>

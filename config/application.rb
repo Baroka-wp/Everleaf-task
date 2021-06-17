@@ -13,6 +13,7 @@ module Everleaf
     config.active_record.default_timezone = :local
     config.i18n.default_locale = :fr
     config.load_defaults 5.2
+    #config.i18n.available_locales = %i[de en]
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
