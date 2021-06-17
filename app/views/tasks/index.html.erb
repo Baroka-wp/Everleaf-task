@@ -1,34 +1,45 @@
 <h1>Tasks index</h1>
 <p><%= notice %></p>
-<table>
+<nav class="navbar navbar-light bg-light">
+<%= form_with url: tasks_path, method: :get, html: {class: "form-inline"} , local: true do |form| %>
+  <%= form.label :task_name, "Task name:" %>
+  <%= form.text_field :task_name, class: "form-control mr-sm-2" %>
+  <%= form.label :status, "Status" %>
+  <%= form.select :status, options_for_select([[''],['unstarted'], ['in progress'], ['completed']]), class: "form-control mr-sm-2"%>
+  <%= form.submit value: "search", class: "btn btn-outline-success my-2 my-sm-0", type: "submit" %>
+<% end %>
+</nav>
+<br>
+<p><%= link_to "sort by end deadline", tasks_path(sort_expired: "true") , value: "dater", class: "badge badge-primary"%> ||
+  <%= link_to "sort by priority", tasks_path(sort_priority: "true"), class: "badge badge-success" %>
+</p>
+<table class="table table-hover">
+  <thead>
   <tr>
-    <th>Task Name</th>
-    <th>Description</th>
-    <th>Priority</th>
-    <th>Status</th>
-    <th>Deadline</th>
+    <th scope="col">Task Name</th>
+    <th scope="col">Description</th>
+    <th scope="col">Priority</th>
+    <th scope="col">Status</th>
+    <th scope="col">Deadline</th>
   </tr>
+</thead>
+<tbody>
 <% @tasks.each do |task| %>
   <tr >
-    <td class="task_row"><%= task.task_name %></td>
+    <td class="task_row" scope="row"><%= task.task_name %></td>
     <td><%= task.description %></td>
-    <td><%= task.priority %></td>
+    <td class="priority_row"><%= task.priority %></td>
     <td><%= task.status %></td>
-    <td><%= task.deadline %></td>
+    <td class="deadline_row"><%= task.deadline %></td>
     <td><%= link_to 'See details', task_path(task.id) %></td>
     <td><%= link_to "Modifier", edit_task_path(task.id) %></td>
     <td><%= link_to 'Supprimer', task_path(task.id), method: :delete %></td>
   </tr>
 <% end %>
+</tbody>
 </table>
 
 <br>
-<h2>List of words converted by i18n</h2>
-Task: <%= t('view.task') %> <br>
-User: <%= t('view.user') %> <br>
-Attributes: <%= t('view.attributes') %> <br>
-Content: <%= t('view.content') %> <br>
-Priority: <%= t('view.priority') %> <br>
-<br>
 
-<%= link_to 'Create a new task', new_task_path %>
+<%= link_to 'Create a new task', new_task_path, class: "badge badge-success" %> || <%= paginate @tasks %>
+

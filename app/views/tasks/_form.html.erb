@@ -9,26 +9,33 @@
       </ul>
     </div>
   <% end %>
-  <div class="task_title">
+ <div class="form">  
+  <div class="task_title form-group">
     <%= form.label :Task_name %>
-    <%= form.text_field :task_name %>
+    <%= form.text_field :task_name, id: "task" , class: "form-control"%>
   </div>
-  <div class="task_title">
+  
+  <div class="task_title form-group">
     <%= form.label :Description %>
-    <%= form.text_field :description %>
+    <%= form.text_field :description, class: "form-control" %>
   </div>
-  <div class="task_title">
+ 
+  <div class="task_title form-group">
     <%= form.label :Priotity %>
-    <%= form.text_field :priority %>
+    <%= form.select :priority, options_for_select([[''],['high'], ['medium'], ['low']]), id: "priority", class: "form-control"  %>
   </div>
-  <div class="task_title">
+   <div class="task_title form-group">
     <%= form.label :Status %>
-    <%= form.text_field :status %>
+    <%= form.select :status, options_for_select([[''],['unstarted'], ['in progress'], ['completed']]), id: "status", class: "form-control"  %>
   </div>
-  <div class="task_title">
+  
+  <div class="task_title form-group">
     <%= form.label :Deadline %>
-    <%= form.date_select :deadline %>
+    <%= form.date_select :deadline, id: "deadline", class: "form-control"%>
   </div>
-  <%= form.submit value:"Register"%>
+  
+  <%= form.submit value:"Register", class: "btn btn-primary submit"%>
+</div>
 <% end %>
-<%= link_to "Back to the task list", tasks_path %>
+<br>
+<%= link_to "Back to the task list", tasks_path, class: "badge badge-success" %>
