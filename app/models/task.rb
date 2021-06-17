@@ -10,6 +10,11 @@ class Task < ApplicationRecord
 	  where(status: query)
 	end
 
+	scope :user_task_list, -> (query) {where(user_id: query)}
+	def user_task_list(query)
+	  where(user_id: query)
+	end
+
 	scope :priority_ordered, -> {order("
 	    CASE tasks.priority 
 	    WHEN 'high' THEN 'a' 
