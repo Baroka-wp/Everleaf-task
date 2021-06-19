@@ -1,8 +1,10 @@
 class Admin::UsersController < ApplicationController
+	skip_before_action :login_required, only: [:edit, :update, :destroy, :show]
+	before_action :is_admin, only: [:edit, :update, :destroy, :show,:index, :new]
 	before_action :set_user, only: [:edit, :update, :destroy, :show]
 	
 	def index
-		@users = User.select(:id, :name)
+		@users = User.select(:id, :name, :admin)
 	end
 
 	def new
@@ -22,10 +24,18 @@ class Admin::UsersController < ApplicationController
 	end
 
 	def update
-		if @user.update(user_params)
-		    redirect_to admin_users_path, notice: "Profil edited!"
+		if params[:admin]
+			if @user.admin == true
+				@user.update_attribute(:admin, false)
+			else
+				@user.update_attribute(:admin, true)
+			end
 		else
-		    render :edit
+			if @user.update(user_params)
+			    redirect_to admin_users_path, notice: "Profil edited!"
+			else
+			    render :edit
+			end
 		end
 	end
 
@@ -46,5 +56,11 @@ class Admin::UsersController < ApplicationController
 
 	def set_user
 		@user = User.find(params[:id])
+	end
+
+	def is_admin
+		if current_user.admin == false || current_user.admin.blank?
+			redirect_to tasks_path
+		end
 	end
 end
