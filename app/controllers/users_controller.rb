@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :login_required, only: [:new, :create, :edit, :update]
+  skip_before_action :login_required, only: [:new, :create, :edit, :update, :show]
 
   def new
   	if logged_in?
@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
     	session[:user_id] = @user.id
-      	redirect_to user_path(@user.id)
+      	redirect_to tasks_path
     else
       render :new
     end
@@ -21,6 +21,9 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    if current_user.id != @user.id
+  		redirect_to tasks_path
+  	end
   end
 
   def update
@@ -33,10 +36,9 @@ class UsersController < ApplicationController
   end
   
   def show
-  	if current_user.id != params[:id]
+  	@user = User.find(params[:id])
+  	if current_user.id != @user.id
   		redirect_to tasks_path
-  	else
-  		@user = User.find(params[:id])
   	end
   end
 
