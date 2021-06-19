@@ -1,0 +1,19 @@
+<h1>Edit the user</h1>
+<div class="form">
+  <%= form_with(model: @user, local: true, url: admin_user_path) do |f| %>
+    <br>
+    <%= f.text_field :name, placeholder: "Name..." %> 
+    <br>
+    <br>
+    <%= f.email_field :email, placeholder: "Email..." %>
+    <br>
+    <br> 
+    <%= f.password_field :password, placeholder: "Password..." %>
+    <br> 
+    <br> 
+    <%= f.password_field :password_confirmation, placeholder: "Password confirmation..." %> 
+    <br>
+    <br>
+    <%= f.submit "Create my account", class: "submit" %> 
+  <% end %>
+</div>

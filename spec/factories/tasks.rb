@@ -6,6 +6,7 @@ FactoryBot.define do
     description { 'undefined' }
     deadline  { '2020/12/01' }
     status { 'completed' }
+    association :user
   end
 
   factory :second_task, class: Task do
@@ -13,5 +14,6 @@ FactoryBot.define do
     description { 'undefined' }
     deadline { '2020/12/02' }
     status { 'unstarted' }
+    association :user
   end
 end

@@ -1,0 +1,24 @@
+<h1>Tasks of <%= @user.name %></h1>
+
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th scope="col">Task Name</th>
+    <th scope="col">Description</th>
+    <th scope="col">Priority</th>
+    <th scope="col">Status</th>
+    <th scope="col">Deadline</th>
+  </tr>
+</thead>
+<tbody>
+<% @user.tasks.each do |task| %>
+  <tr >
+    <td class="task_row" scope="row"><%= task.task_name %></td>
+    <td><%= task.description %></td>
+    <td class="priority_row"><%= task.priority %></td>
+    <td><%= task.status %></td>
+    <td class="deadline_row"><%= task.deadline %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
