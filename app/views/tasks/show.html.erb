@@ -4,3 +4,7 @@
 <p>Priority: <%= @task.priority %></p>
 <p>Status: <%= @task.status %></p>
 <p>Deadline: <%= @task.deadline %></p>
+<h3>List of label associated with the task</h3>
+<% @task.labels.pluck(:title).each do |task_label| %>
+	<p> <%= task_label %> </p>
+<% end %>

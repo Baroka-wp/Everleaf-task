@@ -12,6 +12,8 @@ class TasksController < ApplicationController
 			end
 		elsif params[:status].present?
 			@tasks = all_tasks.status_search(params[:status]).page params[:page]
+		elsif params[:label_id].present?
+			@tasks = all_tasks.label_task_search(params[:label_id]).page params[:page]
 		elsif params[:sort_priority]
 			@tasks = all_tasks.priority_ordered.page params[:page]
 		else
@@ -59,7 +61,7 @@ class TasksController < ApplicationController
 	private
 
 	def task_params
-		params.require(:task).permit(:task_name,:description,:status, :priority, :deadline)
+		params.require(:task).permit(:task_name,:description,:status, :priority, :deadline, label_ids: [])
 	end
 
 	def set_task
