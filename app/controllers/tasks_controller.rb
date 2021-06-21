@@ -23,7 +23,6 @@ class TasksController < ApplicationController
 
 	def new
 		@task = Task.new
-		@labels = Label.all
 	end
 
 	def create

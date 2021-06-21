@@ -44,11 +44,7 @@ end
 	)
 end
 
-if Label.last.id.blank?
-	@label_indice = 0
-else
-	@label_indice = Label.last.id
-end
+
 (1..10).each do |id|
     Label.create!(
         id: id, 
