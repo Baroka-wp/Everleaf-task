@@ -11,7 +11,7 @@ def time_rand from = 0.0, to = Time.now
     Time.at(from + rand * (to.to_f - from.to_f))
 end
 
-if User.last.id.present?
+if User.last.id.blank?
 	@user_indice = 0
 else
 	@user_indice = User.last.id
@@ -27,7 +27,7 @@ end
 	)
 end
 
-if Task.last.id.present?
+if Task.last.id.blank?
 	@task_indice = 0
 else
 	@task_indice = Task.last.id
@@ -44,7 +44,7 @@ end
 	)
 end
 
-if Label.last.id.present?
+if Label.last.id.blank?
 	@label_indice = 0
 else
 	@label_indice = Label.last.id
