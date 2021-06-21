@@ -11,7 +11,12 @@ def time_rand from = 0.0, to = Time.now
     Time.at(from + rand * (to.to_f - from.to_f))
 end
 
-@user_indice = User.last.id
+if User.last.id.present?
+	@user_indice = 0
+else
+	@user_indice = User.last.id
+end
+
 (@user_indice+1..@user_indice+11).each do |id|
 	User.create!(
 	    id: id, 
@@ -22,7 +27,11 @@ end
 	)
 end
 
-@task_indice = Task.last.id
+if Task.last.id.present?
+	@task_indice = 0
+else
+	@task_indice = Task.last.id
+end
 (@task_indice+1..@task_indice+11).each do |id|
 	Task.create!(
 	    id: id, 
@@ -35,7 +44,11 @@ end
 	)
 end
 
-@label_indice = Label.last.id
+if Label.last.id.present?
+	@label_indice = 0
+else
+	@label_indice = Label.last.id
+end
 (@label_indice+1..@label_indice+11).each do |id|
     Label.create!(
         id: id, 
