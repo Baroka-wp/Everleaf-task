@@ -9,7 +9,30 @@ require 'faker'
 
 
 
+10.times do |index|
+	User.create!( 
+	    name: Faker::Name.name,
+	    email: Faker::Internet.email,
+	    password: "password", 
+	    password_confirmation: "password",
+	)
+end
 
+
+def time_rand from = 0.0, to = Time.now
+    Time.at(from + rand * (to.to_f - from.to_f))
+end
+
+10.times do |index|
+	Task.create!( 
+	    task_name: Faker::Lorem.words,
+	    description: Faker::Lorem.sentence,
+	    status: ["completed","in progress","unstarted"].sample, 
+	    deadline: time_rand.year.to_s+"/"+time_rand.month.to_s+"/"+time_rand.day.to_s,
+	    priority: ["high", "medium","low"].sample,
+	    user_id: User.all.pluck(:id).sample,
+	)
+end
 
 
 10.times do |id|
