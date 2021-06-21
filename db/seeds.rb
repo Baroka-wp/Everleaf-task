@@ -12,7 +12,7 @@ def time_rand from = 0.0, to = Time.now
 end
 
 @user_indice = User.last.id
-(@user_indice+1..@user_indice+10).each do |id|
+(@user_indice+1..@user_indice+11).each do |id|
 	User.create!(
 	    id: id, 
 	    name: Faker::Name.name,
@@ -23,7 +23,7 @@ end
 end
 
 @task_indice = Task.last.id
-(@task_indice+1..@task_indice+10).each do |id|
+(@task_indice+1..@task_indice+11).each do |id|
 	Task.create!(
 	    id: id, 
 	    task_name: Faker::Lorem.words,
@@ -36,7 +36,7 @@ end
 end
 
 @label_indice = Label.last.id
-(@label_indice+1..@label_indice+3).each do |id|
+(@label_indice+1..@label_indice+11).each do |id|
     Label.create!(
         id: id, 
         title: Faker::Verb.past_participle,
