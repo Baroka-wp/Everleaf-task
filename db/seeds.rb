@@ -49,7 +49,7 @@ if Label.last.id.blank?
 else
 	@label_indice = Label.last.id
 end
-(@label_indice+1..@label_indice+11).each do |id|
+(1..10).each do |id|
     Label.create!(
         id: id, 
         title: Faker::Verb.past_participle,
