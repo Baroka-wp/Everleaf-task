@@ -51,7 +51,6 @@ ActiveRecord::Schema.define(version: 2021_06_20_130453) do
     t.datetime "updated_at", null: false
     t.boolean "admin"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["id"], name: "index_users_on_id"
   end
 
   add_foreign_key "labellings", "labels"
