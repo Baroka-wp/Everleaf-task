@@ -4,8 +4,10 @@
 <%= form_with url: tasks_path, method: :get, html: {class: "form-inline"} , local: true do |form| %>
   <%= form.label :task_name, "Task name:" %>
   <%= form.text_field :task_name, class: "form-control mr-sm-2" %>
-  <%= form.label :status, "Status" %>
+  <%= form.label :status, "Status:" %>
   <%= form.select :status, options_for_select([[''],['unstarted'], ['in progress'], ['completed']]), class: "form-control mr-sm-2"%>
+  <%= form.label :label_id, "Only Label search:" %>
+  <%= form.select :label_id, Label.all.collect { |l| [ l.title, l.id ] }, include_blank: true %>
   <%= form.submit value: "search", class: "btn btn-outline-success my-2 my-sm-0", type: "submit" %>
 <% end %>
 </nav>

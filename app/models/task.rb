@@ -15,6 +15,10 @@ class Task < ApplicationRecord
 	  where(user_id: query)
 	end
 
+	scope :label_task_search, -> (query) {
+		@ids = Labelling.where(label_id: query).pluck(:task_id)
+		where(id: @ids)}
+
 	scope :priority_ordered, -> {order("
 	    CASE tasks.priority 
 	    WHEN 'high' THEN 'a' 
@@ -25,4 +29,6 @@ class Task < ApplicationRecord
 	    id DESC" )}
 	max_paginates_per 5
 	belongs_to :user
+	has_many :labellings, dependent: :destroy
+	has_many :labels, through: :labellings
 end
